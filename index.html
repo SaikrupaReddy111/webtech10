@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Styled React App</title>
+
+  <!-- React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 10px 0;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background: #007bff;
+      color: white;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+class App extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      count: 0,
+      color: "black",
+      data: [
+        { id: 1, name: "Alice", age: 20 },
+        { id: 2, name: "Bob", age: 22 },
+        { id: 3, name: "Charlie", age: 24 }
+      ]
+    };
+  }
+
+  increment = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+
+  decrement = () => {
+    this.setState({ count: this.state.count - 1 });
+  };
+
+  changeColor = () => {
+    const colors = ["red", "blue", "green", "purple"];
+    const random = colors[Math.floor(Math.random() * colors.length)];
+    this.setState({ color: random });
+  };
+
+  render() {
+    return (
+      <div className="container">
+
+        <h2>🔥 Counter</h2>
+        <h1>{this.state.count}</h1>
+        <button onClick={this.increment}>+</button>
+        <button onClick={this.decrement}>-</button>
+
+        <hr />
+
+        <h2 style={{ color: this.state.color }}>
+          🎨 Color Changing Text
+        </h2>
+        <button onClick={this.changeColor}>Change Color</button>
+
+        <hr />
+
+        <h2>📊 Table Data</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Age</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {this.state.data.map(item => (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+                <td>{item.age}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+      </div>
+    );
+  }
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script>
+
+</body>
+</html>
